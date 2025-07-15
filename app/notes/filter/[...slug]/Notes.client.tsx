@@ -11,7 +11,7 @@ import type { Note } from "@/types/note";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import NoteList from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
-import NoteModal from "@/components/NoteModal/Modal";
+import NoteModal from "@/components/Modal/Modal";
 import css from "./Page.module.css";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import { toast } from "react-hot-toast";
