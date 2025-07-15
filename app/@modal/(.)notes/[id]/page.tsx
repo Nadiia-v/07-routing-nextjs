@@ -1,27 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import Modal from "@/components/Modal/Modal";
-import NotePreview from "@/components/NotePreview/NotePreview";
-import { fetchNoteById } from "@/lib/api";
-import { Note } from "@/types/note";
+import NotePreview from "./NotePreview.client";
 
-export default function NoteModalPage() {
+export default function Page() {
   const { id } = useParams();
-  const [note, setNote] = useState<Note | null>(null);
 
-  useEffect(() => {
-    if (typeof id === "string") {
-      fetchNoteById(Number(id)).then(setNote);
-    }
-  }, [id]);
+  if (typeof id !== "string") return null;
 
-  if (!note) return null;
-
-  return (
-    <Modal onClose={() => history.back()}>
-      <NotePreview note={note} onBack={() => history.back()} />
-    </Modal>
-  );
+  return <NotePreview id={id} onClose={() => history.back()} />;
 }
