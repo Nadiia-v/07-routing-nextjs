@@ -1,27 +1,28 @@
 "use client";
 
 import { useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api";
 import { Note } from "@/types/note";
 import Modal from "@/components/Modal/Modal";
 import css from "./NotePreview.client.module.css";
 
-export default function NotePreviewModal() {
-  const { id } = useParams();
-  const router = useRouter();
+interface NotePreviewModalProps {
+  id: number;
+}
 
-  const numericId = typeof id === "string" ? Number(id) : NaN;
+export default function NotePreviewModal({ id }: NotePreviewModalProps) {
+  const router = useRouter();
 
   const {
     data: note,
     isLoading,
     error,
   } = useQuery<Note>({
-    queryKey: ["note", numericId],
-    queryFn: () => fetchNoteById(numericId),
-    enabled: !isNaN(numericId),
+    queryKey: ["note", id],
+    queryFn: () => fetchNoteById(id),
+    refetchOnMount: false,
   });
 
   useEffect(() => {
